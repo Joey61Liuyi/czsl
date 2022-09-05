@@ -24,12 +24,16 @@ best_auc = 0
 best_hm = 0
 compose_switch = True
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+import wandb
+
 
 def main():
+
+    wandb.init(project='zero-shot', name='aopp', entity='joey61')
     # Get arguments and start logging
     args = parser.parse_args()
-    args.config = 'configs/cge/utzappos.yml'
-    # args.config = 'configs/baselines/utzppos/aopp.yml'
+    # args.config = 'configs/cge/utzappos.yml'
+    args.config = 'configs/baselines/utzppos/aopp.yml'
     load_args(args.config, args)
     logpath = os.path.join(args.cv_dir, args.name)
     os.makedirs(logpath, exist_ok=True)
@@ -205,7 +209,7 @@ def test(epoch, image_extractor, model, testloader, evaluator, writer, args, log
     for key in stats:
         writer.add_scalar(key, stats[key], epoch)
         result = result + key + '  ' + str(round(stats[key], 4)) + '| '
-
+    wandb.log(stats)
     result = result + args.name
     print(f'Test Epoch: {epoch}')
     print(result)
