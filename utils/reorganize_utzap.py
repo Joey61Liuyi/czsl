@@ -17,7 +17,7 @@ import torch
 import shutil
 import tqdm
 
-DATA_FOLDER= "ROOT_FOLDER"
+DATA_FOLDER= "../newdata"
 
 root = DATA_FOLDER+'/ut-zap50k/'
 os.makedirs(root+'/images',exist_ok=True)

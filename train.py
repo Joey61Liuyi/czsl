@@ -28,6 +28,8 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 def main():
     # Get arguments and start logging
     args = parser.parse_args()
+    args.config = 'configs/cge/utzappos.yml'
+    # args.config = 'configs/baselines/utzppos/aopp.yml'
     load_args(args.config, args)
     logpath = os.path.join(args.cv_dir, args.name)
     os.makedirs(logpath, exist_ok=True)

@@ -138,7 +138,7 @@ def load_glove_embeddings(vocab):
     vocab = [v.lower() for v in vocab]
     emb_file = DATA_FOLDER+'/glove/glove.6B.300d.txt'
     model = {}  # populating a dictionary of word and embeddings
-    for line in open(emb_file, 'r'):
+    for line in open(emb_file, 'r', encoding='utf8'):
         line = line.strip().split(' ')  # Word-embedding
         wvec = torch.FloatTensor(list(map(float, line[1:])))
         model[line[0]] = wvec

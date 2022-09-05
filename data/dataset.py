@@ -365,9 +365,11 @@ class CompositionDataset(Dataset):
         files_before = glob(ospj(data, '**', '*.jpg'), recursive=True)
         files_all = []
         for current in files_before:
-            parts = current.split('/')
+            parts = current.split('\\')
             if "cgqa" in self.root:
                 files_all.append(parts[-1])
+            # elif 'ut-zap50k' in self.root:
+            #     files_all.append(os.path.join(parts[-4], parts[-3], parts[-2], parts[-1]))
             else:
                 files_all.append(os.path.join(parts[-2],parts[-1]))
         transform = dataset_transform('test', self.norm_family)
@@ -399,6 +401,8 @@ class CompositionDataset(Dataset):
         image, attr, obj = self.data[index]
 
         # Decide what to output
+        if '/' in image:
+            image = image.replace('/', '\\')
         if not self.update_features:
             img = self.activations[image]
         else:
